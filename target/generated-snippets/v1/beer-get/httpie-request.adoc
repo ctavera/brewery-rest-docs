@@ -1,5 +1,5 @@
 [source,bash]
 ----
-$ http GET 'https://da.springframework.breweryrestdocs:80/api/v1/beer/5a01d9e2-e37c-444f-a918-5281274e4099?iscold=yes' \
+$ http GET 'http://localhost:8080/api/v1/beer/a2ab01bd-22cd-4eb0-bd55-1b6837dc4089' \
     'Accept:application/json'
 ----

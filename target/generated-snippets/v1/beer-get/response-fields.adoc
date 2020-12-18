@@ -6,15 +6,15 @@
 |Id of Beer
 
 |`+beerName+`
-|`+class java.lang.String+`
+|`+String+`
 |Beer Name
 
 |`+beerStyle+`
-|`+class java.lang.String+`
+|`+String+`
 |Beer Style
 
 |`+upc+`
-|`+class java.lang.Long+`
+|`+Number+`
 |UPC of Beer
 
 |`+createdDate+`

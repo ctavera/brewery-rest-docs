@@ -34,9 +34,8 @@ import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(RestDocumentationExtension.class)
-@AutoConfigureRestDocs(uriScheme = "https", uriHost = "da.springframework.breweryrestdocs", uriPort = 80)
+@AutoConfigureRestDocs
 @WebMvcTest(BeerController.class)
-@ComponentScan("guru.springframework.msscbrewery.web.mappers")
 public class BeerControllerTest {
 
     @Autowired
@@ -63,8 +62,9 @@ public class BeerControllerTest {
     public void getBeer() throws Exception {
         given(beerService.getBeerById(any(UUID.class))).willReturn(validBeer);
 
+        ConstrainedFields fields = new ConstrainedFields(BeerDto.class);
+
         mockMvc.perform(get("/api/v1/beer/{beerId}", validBeer.getId().toString())
-                .param("iscold", "yes")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -74,16 +74,13 @@ public class BeerControllerTest {
                         pathParameters(
                                 parameterWithName("beerId").description("UUID of desired beer to get.")
                         ),
-                        requestParameters(
-                                parameterWithName("iscold").description("Is Beer Cold Query param")
-                        ),
                         responseFields(
-                                fieldWithPath("id").type(UUID.class).description("Id of Beer"),
-                                fieldWithPath("beerName").type(String.class).description("Beer Name"),
-                                fieldWithPath("beerStyle").type(String.class).description("Beer Style"),
-                                fieldWithPath("upc").type(Long.class).description("UPC of Beer"),
-                                fieldWithPath("createdDate").type(OffsetDateTime.class).description("Date Created"),
-                                fieldWithPath("lastUpdatedDate").type(OffsetDateTime.class).description("Date Updated")
+                                fields.withPath("id").type(UUID.class).description("Id of Beer"),
+                                fields.withPath("beerName").description("Beer Name"),
+                                fields.withPath("beerStyle").description("Beer Style"),
+                                fields.withPath("upc").description("UPC of Beer"),
+                                fields.withPath("createdDate").type(OffsetDateTime.class).description("Date Created"),
+                                fields.withPath("lastUpdatedDate").type(OffsetDateTime.class).description("Date Updated")
                         )
                 ));
     }
