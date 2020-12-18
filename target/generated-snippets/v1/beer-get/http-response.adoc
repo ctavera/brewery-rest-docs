@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 148
+
+{"id":"5a01d9e2-e37c-444f-a918-5281274e4099","beerName":"Beer1","beerStyle":"PALE_ALE","upc":123456789012,"createdDate":null,"lastUpdatedDate":null}
+----
